@@ -1,0 +1,13 @@
+*
+node_modules
+
+!.gitignore
+!*/
+!*.md
+!.myfuncs
+!makefile
+!*.jar
+!*.java
+!*.html
+!*.css
+!*.js
