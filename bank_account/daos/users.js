@@ -1,26 +1,21 @@
 import data from '../data.js';
-import bcrypt from 'bcryptjs';
 
 const getUserByEmail = (email) => {
-    console.log("inside getUserByEmail");
+    console.log("dao: inside getUserByEmail");
     const user = data.find(user => user.email === email);
     console.log("user:/n" + user);
     return user;
 }
 
-function hashedPassword(password) {
-    bcrypt.hash(password, 10);
-}
-
-const createUser = (userBody) => {
-    console.log("inside createUser");
+const createUser = (userBody, hashPass) => {
+    console.log("dao: inside createUser");
     const length = data.length;
     console.log("start length: " + length);
     const newUser = {
         id: length + 1,
         email: userBody.email,
         phone: userBody.phone,
-        password: hashedPassword(userBody.password),
+        password: hashPass,
         active: 0
     }
     data.push(newUser);
@@ -33,24 +28,25 @@ const createUser = (userBody) => {
     }
 }
 
-function activateUser(userId) {
-    console.log("activate user - userId from localStorage: " + userId);
+const getUserById = (userId) => {
+    console.log('dao: get a user by id=' + userId);
     const user = data.find(user => user.id === userId);
-    const index = data.findIndex(user => user.id === userId);
-    if (index === -1) {
-        return 404;
-    }
-    user.active = 1;
-    data[index] = user;
     return user;
 }
 
-function deleteUserByIdInLocalStorage(userId) {
-    console.log("remove user - userId from localStorage: " + userId);
+const getUserIndex = (userId) => {
+    console.log('dao: get a user index id=' + userId);
     const index = data.findIndex(user => user.id === userId);
-    if (index === -1) {
-        return 404;
-    }
+    return index;
+}
+
+const updateUser = (index, user) => {
+    console.log('dao: update the user');
+    data[index] = user;
+    return 200;
+}
+
+const deleteUserByIndex = (index) => {
     const startLength = data.length;
     data.splice(index, 1);
     if (startLength == data.length) {
@@ -60,11 +56,11 @@ function deleteUserByIdInLocalStorage(userId) {
     }
 }
 
-
-
 export default {
     getUserByEmail,
     createUser,
-    activateUser,
-    deleteUserByIdInLocalStorage
+    getUserById,
+    getUserIndex,
+    updateUser,
+    deleteUserByIndex
 }
