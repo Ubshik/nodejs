@@ -4,7 +4,7 @@ import {LocalStorage} from 'node-localstorage';
 
 global.localStorage = new LocalStorage('./scratch');
 
-function getRundomSixDigits() {
+function getRandomSixDigits() {
     return Math.floor(100_000 + Math.random() * 900_000);
 }
 
@@ -42,54 +42,44 @@ function sendVerificationCode(email, code) {
 }
 
 const signUp = (async(request, response) => {
-    const user = signupService.getUserByEmail(request.body.email);
+    const user = await signupService.getUserByEmail(request.body.email);
     if (user) {
         response.status(409).json({error: 'Email already exists'});
     } else {
-        const createdUser = await signupService.createUser(request.body);
-        if (user === 500) {
-            response.status(409).json({error: 'Server error'});
+        const statusCreatedUser = await signupService.createUser(request.body);
+        if (statusCreatedUser === 500) {
+            response.status(statusCreatedUser).json({error: 'Server error'});
         } else {
-            localStorage.setItem("user_id", createdUser.id);
+            localStorage.setItem("user_email", request.body.email);
 
-            const verificationCode = getRundomSixDigits();
+            const verificationCode = getRandomSixDigits();
             localStorage.setItem("verification_code", verificationCode);
             console.log(verificationCode + " == " + localStorage.getItem("verification_code"));
 
-            sendVerificationCode(createdUser.email, verificationCode);
+            sendVerificationCode(request.body.email, verificationCode);
 
-            response.status(201).json(createdUser);
+            // const createdUser = await signupService.getUserByEmail(request.body.email);
+            // response.status(statusCreatedUser).json(createdUser);
+
+            response.status(statusCreatedUser).json({message: 'User registred successfully'});
         }
     }
 });
 
 const signUpVerification = ((request, response) => {
-
+    console.log("inside signUpVerification");
     const correctCode = localStorage.getItem("verification_code");
+    console.log("correct code: " + correctCode);
     if (request.body.code !== correctCode) {
-        signupService.deleteUserByIdInLocalStorage(localStorage.getItem("user_id"));
         localStorage.clear();
         response.status(404).json({error: 'Invalid verifivation code. Restart your registration'});
     } else {
-        signupService.activateUser(localStorage.getItem("user_id"));
+        signupService.verifyEmail(localStorage.getItem("user_email"));
         response.status(200).json({message: 'Verification was successful'});
     }
 });
 
-
-const logIn = ((request, response) => {
-    
-});
-
-
-const logOut = ((request, response) => {
-    
-});
-
-
 export default {
     signUp,
-    signUpVerification,
-    logIn,
-    logOut
+    signUpVerification
 }
