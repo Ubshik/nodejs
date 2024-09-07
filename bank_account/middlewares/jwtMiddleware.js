@@ -5,7 +5,8 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const verifyToken = async(request, response, next) => {
-    const token = request.header('Authorization');
+    let token = request.header('Authorization');
+    token = token.replace("Bearer ", "");
     console.log("token: " + token);
 
     const isBlockedToken = await logOutService.isBlockedToken(token);

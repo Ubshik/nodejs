@@ -32,18 +32,6 @@ const verifyEmail = async(email) => {
     return user;
 }
 
-// const getUserIndex = (userId) => {
-//     console.log('dao: get a user index id=' + userId);
-//     const index = data.findIndex(user => user.id === userId);
-//     return index;
-// }
-
-// const updateUser = (index, user) => {
-//     console.log('dao: update the user');
-//     data[index] = user;
-//     return 200;
-// }
-
 export default {
     getUserByEmail,
     createUser,
