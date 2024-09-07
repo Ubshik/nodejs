@@ -1,3 +1,4 @@
+import userService from '../services/userService.js';
 import signupService from '../services/signupService.js';
 import nodemailer from 'nodemailer';
 import {LocalStorage} from 'node-localstorage';
@@ -42,7 +43,7 @@ function sendVerificationCode(email, code) {
 }
 
 const signUp = (async(request, response) => {
-    const user = await signupService.getUserByEmail(request.body.email);
+    const user = await userService.getUserByEmail(request.body.email);
     if (user) {
         response.status(409).json({error: 'Email already exists'});
     } else {

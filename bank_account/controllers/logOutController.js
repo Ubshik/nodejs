@@ -9,7 +9,7 @@ const logOut = (async(request, response) => {
             return response.sendStatus(204);
         }
 
-        const blockToken = await logOutService.createBlockedToken(token);
+        await logOutService.createBlockedToken(token);
         response.status(200).json({message: 'User is logged out successful'});
     } catch(error) {
         response.status(500).json({error: 'Server error'});

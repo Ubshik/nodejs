@@ -1,7 +1,7 @@
 import User from '../models/userModel.js';
 import mongoose from 'mongoose';
 import transactionSchema from '../models/transactionModel.js';
-import userDao from '../daos/users.js';
+import userDAO from '../daos/users.js';
 
 const updateBalance = async(email, amount) => {
     console.log("dao: inside update balance");
@@ -21,7 +21,7 @@ const createTransactionRecord = async(email, amount, type, addressee) => {
         });
         const user = await User.updateOne({email: email}, {$push: {transactions: newRecord}});
 
-        const updatedUser = await userDao.getUserByEmail(email);
+        const updatedUser = await userDAO.getUserByEmail(email);
         console.log("updated user with transaction: " + JSON.stringify(updatedUser));
 
         console.log("200: Transaction was added");

@@ -1,10 +1,10 @@
-import signupService from '../services/signupService.js';
+import userService from '../services/userService.js';
 import logInService from '../services/logInService.js';
 
 const logIn = (async(request, response) => {
     console.log('logIn controller');
     try {
-        const user = await signupService.getUserByEmail(request.body.email);
+        const user = await userService.getUserByEmail(request.body.email);
         console.log('logIn: user is');
         if (!user) {
             return response.status(401).json({error: 'Invalid credentials'});
