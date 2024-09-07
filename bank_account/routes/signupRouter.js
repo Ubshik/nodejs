@@ -1,9 +1,20 @@
 import express from 'express';
 import signupController from '../controllers/signupController.js';
+import checkSchema from '../middlewares/signupMiddleware.js';
+import checkEmail from '../middlewares/emailMiddleware.js';
+import checkPhone from '../middlewares/phoneMiddleware.js';
+// import checkPassword from '../middlewares/passwordMiddleware.js';
+import checkVerificationCode from '../middlewares/verificationCodeMiddleware.js';
 
 const router = express.Router();
 
-router.post('/', signupController.signUp);
-router.post('/verification', signupController.signUpVerification);
+router.post('/', checkSchema.verifySchema,
+                    checkEmail.verifyEmail,
+                    checkPhone.verifyPhone,
+                    // checkPassword.verifyPassword,
+                    signupController.signUp);
+
+router.post('/verification', checkVerificationCode.verifyCode, 
+                                signupController.signUpVerification);
 
 export default router;
