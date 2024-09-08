@@ -26,13 +26,17 @@ const userSchema = new mongoose.Schema({
         type: Date,
         default: Date.now,
     },
-    balance: {
+    verificationCode: {
         type: Number,
-        default: randomFloat(0, 150).toFixed(2),
+        required: true,
     },
     isEmailVerified: {
         type: Boolean,
         default: false,
+    },
+    balance: {
+        type: Number,
+        default: randomFloat(0, 150).toFixed(2),
     },
     transactions: [
         transactionSchema,

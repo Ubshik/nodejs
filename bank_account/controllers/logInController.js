@@ -17,9 +17,9 @@ const logIn = (async(request, response) => {
         }
     
         const token = logInService.getToken(request.body.email);
-        response.status(200).json({token: token});
+        return response.status(200).json({token: token});
     } catch(error) {
-        response.status(500).json({error: 'Server error'});
+        return response.status(500).json({error: 'Server error'});
     }
 });
 

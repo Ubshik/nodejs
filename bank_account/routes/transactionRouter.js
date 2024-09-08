@@ -5,7 +5,8 @@ import transactionController from '../controllers/transactionController.js';
 
 const router = express.Router();
 
-router.post('/', jwtMiddleware.verifyToken, 
+router.post('/', jwtMiddleware.verifyToken,
+                transactionMiddlewares.verifySchema,
                 transactionMiddlewares.verifyTransaction, 
                 transactionController.doTransaction);
 

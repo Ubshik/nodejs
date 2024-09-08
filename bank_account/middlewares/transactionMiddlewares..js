@@ -1,4 +1,22 @@
 import userService from "../services/userService.js";
+import Ajw from 'ajv';
+
+const transactionSchema = {
+    type: "object",
+    properties: {
+        email: {type: "string"},
+        amount: {type: "number"}
+    },
+    required: ["email", "amount"]
+};
+
+const verifySchema = async(request, response, next) => {
+    if (!new Ajw().validate(transactionSchema, request.body)) {
+        return response.status(400).json({error: "Invalid data: please fill all fields"}); 
+    }
+
+    next();
+}
 
 const verifyTransaction = async(request, response, next) => {
     if (request.body.amount <= 0) {
@@ -21,5 +39,6 @@ const verifyTransaction = async(request, response, next) => {
 }
 
 export default {
+    verifySchema,
     verifyTransaction
 }

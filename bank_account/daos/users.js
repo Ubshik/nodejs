@@ -7,13 +7,14 @@ const getUserByEmail = async(email) => {
     return user;
 }
 
-const createUser = async(userBody, hashPass) => {
+const createUser = async(email, phone, hashPass, verificationCode) => {
     console.log("dao: inside createUser");
     try {
         const newUser = new User({
-            email: userBody.email,
-            phone: userBody.phone,
-            hashedPassword: hashPass
+            email: email,
+            phone: phone,
+            hashedPassword: hashPass,
+            verificationCode: verificationCode
         });
 
         await newUser.save();

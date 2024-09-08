@@ -21,8 +21,10 @@ const verifyToken = async(request, response, next) => {
         if (error) {
             return response.status(401).json({error: "Unauthorized access"});
         }
+
         request.email = decoded.email;
         console.log("email from token: " + decoded.email);
+        
         next();
     });
 }

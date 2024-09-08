@@ -6,11 +6,15 @@ async function hashedPassword(password) {
     return hashPass;
 }
 
-const createUser = async(userBody) => {
+function getRandomSixDigits() {
+    return Math.floor(100_000 + Math.random() * 900_000);
+}
+
+const createUser = async(userBody, verificationCode) => {
     console.log("service: inside createUser");
     const hashPass = await hashedPassword(userBody.password);
     console.log("pass: " + userBody.password + " -> " + hashPass);
-    const newUser = await userDAO.createUser(userBody, hashPass);
+    const newUser = await userDAO.createUser(userBody.email, userBody.phone, hashPass, verificationCode);
     return newUser;
 }
 

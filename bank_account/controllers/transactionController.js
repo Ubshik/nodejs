@@ -5,9 +5,11 @@ const doTransaction = async(request, response) => {
                                                     request.body.addressee,
                                                     request.body.amount
     );
+
     if (status === 500) {
         return response.status(status).json({error: 'Server error'});
     }
+    
     return response.status(status).json({message: 'Transaction is successful'});
 }
 
