@@ -39,8 +39,9 @@ const insertTransactionAndUpdateBalance = async(email, amount, type, addressee, 
         const newRecord = new transactionModel({
             amount: Math.abs(amount),
             type: type,
-            addressee: addressee,
-            creationTime: date
+            creationTime: date,
+            addressee: addressee
+
         });
         const user = await User.updateOne({email: email}, {$inc: {balance: amount},
                                                             $push: {transactions: newRecord}});
