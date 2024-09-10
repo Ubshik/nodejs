@@ -6,10 +6,14 @@ const doTransaction = async(sender, receiver, amount) => {
     session.startTransaction();
 
     try {
-        await transactionDAO.createTransactionRecord(sender, amount, 'minus', receiver);
-        await transactionDAO.createTransactionRecord(receiver, amount, 'plus', sender);
-        await transactionDAO.updateBalance(sender, -amount);
-        await transactionDAO.updateBalance(receiver, amount);
+        // await transactionDAO.createTransactionRecord(sender, amount, 'minus', receiver);
+        // await transactionDAO.createTransactionRecord(receiver, amount, 'plus', sender);
+        // await transactionDAO.updateBalance(sender, -amount);
+        // await transactionDAO.updateBalance(receiver, amount);
+        const nowTime = new Date().getTime();
+        await transactionDAO.insertTransactionAndUpdateBalance(sender, -amount, 'minus', receiver, nowTime);
+        await transactionDAO.insertTransactionAndUpdateBalance(receiver, amount, 'plus', sender, nowTime);
+        session.commitTransaction();
         console.log("Transaction is successfull");
         return 200;
     } catch (error) {

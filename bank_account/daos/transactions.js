@@ -32,7 +32,32 @@ const createTransactionRecord = async(email, amount, type, addressee) => {
     }
 }
 
+const insertTransactionAndUpdateBalance = async(email, amount, type, addressee, date) => {
+    console.log("dao: inside create transaction record");
+    try {
+        const transactionModel = mongoose.model('Transaction', transactionSchema, 'transactions');
+        const newRecord = new transactionModel({
+            amount: Math.abs(amount),
+            type: type,
+            addressee: addressee,
+            creationTime: date
+        });
+        const user = await User.updateOne({email: email}, {$inc: {balance: amount},
+                                                            $push: {transactions: newRecord}});
+
+        const updatedUser = await userDAO.getUserByEmail(email);
+        console.log("updated user with transaction: " + JSON.stringify(updatedUser));
+
+        console.log("200: Transaction was added");
+        return 200;
+    } catch (error) {
+        console.log("500: Server error: " + error);
+        throw new Error("Can not create transaction record " + error); 
+    }
+}
+
 export default {
     updateBalance,
-    createTransactionRecord
+    createTransactionRecord,
+    insertTransactionAndUpdateBalance
 }

@@ -13,7 +13,7 @@ const transactionSchema = new mongoose.Schema({
     },
     creationTime: {
         type: Date,
-        default: Date.now,
+        // default: Date.now,
     },
     addresseeEmail: {
         type: String,

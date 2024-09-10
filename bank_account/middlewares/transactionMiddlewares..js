@@ -4,14 +4,15 @@ import Ajw from 'ajv';
 const transactionSchema = {
     type: "object",
     properties: {
-        email: {type: "string"},
+        addressee: {type: "string"},
         amount: {type: "number"}
     },
-    required: ["email", "amount"]
+    required: ["addressee", "amount"]
 };
 
 const verifySchema = async(request, response, next) => {
     if (!new Ajw().validate(transactionSchema, request.body)) {
+        console.log("error from verify schema transaction")
         return response.status(400).json({error: "Invalid data: please fill all fields"}); 
     }
 
@@ -19,6 +20,10 @@ const verifySchema = async(request, response, next) => {
 }
 
 const verifyTransaction = async(request, response, next) => {
+    if (request.email === request.body.addressee) {
+        return response.status(400).json({error: "Sender and receiver can not be the same"});
+    }
+
     if (request.body.amount <= 0) {
         return response.status(400).json({error: "Amount can not be less or equal zero"});
     }
