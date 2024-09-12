@@ -14,7 +14,7 @@ const createBlockedToken = async(token) => {
         });
 
         await newBlockedToken.save();
-        console.log("201: Blocked token saved successfully");
+        console.log("201: Token saved as blocked successfully");
         return 201;
     } catch (error) {
         console.log("500: Server error: " + error);

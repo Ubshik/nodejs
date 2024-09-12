@@ -1,7 +1,6 @@
 import mongoose from 'mongoose';
-import randomFloat from 'random-float';
 import roles from '../enums/rolesEnum.js';
-import transactionSchema from './transactionModel.js';
+import accountModel from './accountModel.js';
 
 const userSchema = new mongoose.Schema({
     email: {
@@ -34,13 +33,7 @@ const userSchema = new mongoose.Schema({
         type: Boolean,
         default: false,
     },
-    balance: {
-        type: Number,
-        default: randomFloat(0, 150).toFixed(2),
-    },
-    transactions: [
-        transactionSchema,
-    ]
+    account: accountModel.accountSchema
 });
 
 userSchema.index(

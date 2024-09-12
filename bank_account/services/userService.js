@@ -1,4 +1,4 @@
-import userDAO from '../daos/users.js';
+import userDAO from '../daos/userDAO.js';
 
 const getUserByEmail = async(email) => {
     console.log("service: inside getUserByEmail");

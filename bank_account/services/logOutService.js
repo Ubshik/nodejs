@@ -1,4 +1,4 @@
-import blacklistTokenDAO from '../daos/blacklistToken.js';
+import blacklistTokenDAO from '../daos/blacklistTokenDAO.js';
 
 const createBlockedToken = async(token) => {
     const blockedToken = await blacklistTokenDAO.createBlockedToken(token); 

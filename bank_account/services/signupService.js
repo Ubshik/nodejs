@@ -1,4 +1,4 @@
-import userDAO from '../daos/users.js';
+import userDAO from '../daos/userDAO.js';
 import bcrypt from 'bcryptjs';
 
 async function hashedPassword(password) {
@@ -6,10 +6,7 @@ async function hashedPassword(password) {
     return hashPass;
 }
 
-function getRandomSixDigits() {
-    return Math.floor(100_000 + Math.random() * 900_000);
-}
-
+//amount should be not changable. check random function
 const createUser = async(userBody, verificationCode) => {
     console.log("service: inside createUser");
     const hashPass = await hashedPassword(userBody.password);
@@ -20,12 +17,8 @@ const createUser = async(userBody, verificationCode) => {
 
 const verifyEmail = async(userEmail) => {
     console.log("service: activate user - user email from localStorage: " + userEmail);
-    const user = await userDAO.verifyEmail(userEmail);
-    console.log("user after email verification: " + JSON.stringify(user));
-    if (!user) {
-        return 404;
-    }
-    return 200;
+    const status = await userDAO.verifyEmail(userEmail);
+    return status;
 }
 
 export default {

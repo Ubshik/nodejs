@@ -67,8 +67,11 @@ const signUpVerification = (async(request, response) => {
         return response.status(404).json({error: 'Invalid verification code'});
     }
 
-    await signupService.verifyEmail(request.body.email);
-    return response.status(200).json({message: 'Verification was successful'});
+    const status = await signupService.verifyEmail(request.body.email);
+    if (status === 500) {
+        return response.status(status).json({message: 'Server error'});   
+    }
+    return response.status(status).json({message: 'Verification was successful'});
 });
 
 export default {
