@@ -5,7 +5,8 @@ import accountModel from '../models/accountModel.js';
 const getUserByEmail = async(email) => {
     console.log("dao: inside getUserByEmail");
     const user = await User.findOne({email: email});
-    console.log("user: " + user);
+    console.log("dao: user is ready");
+    // console.log("user: " + user);
     return user;
 }
 

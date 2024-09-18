@@ -24,7 +24,10 @@ app.listen(PORT, () => {
 
 dotenv.config();
 
-const dbURL = 'mongodb://' + process.env.DATABASE_HOST + ':' + process.env.DATABASE_PORT + '/' +  process.env.DATABASE_NAME;
+const dbURL = 'mongodb://' + process.env.DATABASE_HOST + 
+                ':' + process.env.DATABASE_PORT + 
+                '/' +  process.env.DATABASE_NAME +
+                '?directConnection=true&replicaSet=replicaset&retryWrites=true';
 console.log("mongo_url: " + dbURL);
 
 mongoose.connect(dbURL)

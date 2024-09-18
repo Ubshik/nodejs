@@ -12,7 +12,7 @@ const isMatchedPassword = async (providedPassword, hashedPass) => {
 
 const getToken = (email) => {
     const token = jwt.sign({email: email}, process.env.JWT_SECRET, {
-        expiresIn: '5m' //5 minutes
+        expiresIn: '2h' //5m - 5 minutes; 2h - 2 hours
     });
     return token;
 }

@@ -4,7 +4,7 @@ import transactionModel from './transactionModel.js';
 const accountSchema = new mongoose.Schema({
     balance: {
         type: Number,
-        default: Math.floor(Math.random() * 150 * 100),
+        default: () => Math.floor(Math.random() * 150 * 100),
     },
     transactions: [
         transactionModel.transactionSchema,
