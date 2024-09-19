@@ -33,7 +33,10 @@ const userSchema = new mongoose.Schema({
         type: Boolean,
         default: false,
     },
-    account: accountModel.accountSchema
+    account: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Account',
+    }
 });
 
 userSchema.index(

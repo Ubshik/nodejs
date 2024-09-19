@@ -7,7 +7,10 @@ const accountSchema = new mongoose.Schema({
         default: () => Math.floor(Math.random() * 150 * 100),
     },
     transactions: [
-        transactionModel.transactionSchema,
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Transaction',
+        }
     ]
 });
 

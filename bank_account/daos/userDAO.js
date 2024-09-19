@@ -4,9 +4,18 @@ import accountModel from '../models/accountModel.js';
 
 const getUserByEmail = async(email) => {
     console.log("dao: inside getUserByEmail");
-    const user = await User.findOne({email: email});
-    console.log("dao: user is ready");
-    // console.log("user: " + user);
+    const user = await User.findOne({email: email})
+    return user;
+}
+
+const getUserByEmailWithAllCorrespondData = async(email) => {
+    console.log("dao: inside getUserByEmail");
+    const user = await User.findOne({email:email}).populate([
+        {
+            path: 'account',
+            populate: [{ path: 'transactions'}]
+        }
+    ]);
     return user;
 }
 
@@ -39,13 +48,14 @@ const verifyEmail = async(email) => {
     try {
         await User.updateOne({email: email}, 
             {$set: {isEmailVerified: true,
-                    account: await new accountModel.Account().save()
-            }});
-        session.commitTransaction();
+                    account: await new accountModel.Account().save({session: session})
+            }}, 
+            {session: session});
+        await session.commitTransaction();
         console.log("Email verification is successful");
         return 200;
     } catch (error) {
-        session.abortTransaction();
+        await session.abortTransaction();
         console.log("Email verification is failed: " + error);
         return 500;
     } finally {
@@ -55,6 +65,7 @@ const verifyEmail = async(email) => {
 
 export default {
     getUserByEmail,
+    getUserByEmailWithAllCorrespondData,
     createUser,
     verifyEmail
 }

@@ -6,7 +6,6 @@ async function hashedPassword(password) {
     return hashPass;
 }
 
-//amount should be not changable. check random function
 const createUser = async(userBody, verificationCode) => {
     console.log("service: inside createUser");
     const hashPass = await hashedPassword(userBody.password);
