@@ -4,9 +4,6 @@ node_modules/
 
 !.gitignore
 !*/
-!*.md
-!.myfuncs
-!makefile
 !*.jar
 !*.java
 !*.html
@@ -15,3 +12,4 @@ node_modules/
 !*.jsx
 !*.ttf
 !*.webp
+!*.json
