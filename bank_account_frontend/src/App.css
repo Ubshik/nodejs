@@ -65,11 +65,10 @@ h1 {
   font-family: "ZenDots";
   font-weight: 1000;
   font-size: 1.6em;
-  padding-top: 2%;
 }
 
 input {
-  margin-top: 4%;
+  margin-top: 2%;
   height: 40px;
   width: 350px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -79,6 +78,7 @@ input {
 .submit {
   width: 26vw;
   height: 7vh;
+  padding: 0px;
   background-color: #0a3d03;
   border: 0.8px solid black;
   color: white;

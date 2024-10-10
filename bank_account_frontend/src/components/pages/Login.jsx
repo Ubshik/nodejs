@@ -1,11 +1,12 @@
-import './Pages.css';
 import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import './Pages.css';
 
 
 //TODO 
 //2)send request: + => redirect to user page or - => stay here + incorrect data
-//3)add link to sign up 
+//4)check useRef => remove
+//5)if success => redirect to dashboard, fail => show a rectangle with a message => reload this page
 export default function Login () {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -27,34 +28,9 @@ export default function Login () {
     const formRef = useRef();
 
     const sendData = (e) => {
+        console.log("press submit in login form");
         return null;
     }
-
-//   const sendData = async (e) => {
-//     e.preventDefault();
-//     console.log("inside sendData");
-//     let formData = new FormData(formRef.current);
-//     let requestJson = JSON.stringify(Object.fromEntries(formData));
-//     console.log("request json " + requestJson);
-//     console.log("company_id " + localStorage.getItem("company_id"));
-
-//     const response  = await fetch(getGatewayURI(URL_REGISTER_PRODUCT_COMMON + "/" + localStorage.getItem("company_id")), {
-//         method: "POST",
-//         body: requestJson,
-//     });
-//     console.log(response.status);
-//     const json = await response.json();
-//     json["status"] = response.status;
-
-//     if (response.status === 201) {
-//       navigate("/success");
-//     } else {
-//       navigate("/fail");
-//     };
-
-//     return json;
-// };
-
 
     return (
         <main>
@@ -125,18 +101,3 @@ export default function Login () {
 
 //     return json;
 // };
-
-
-//   return (
-//     <main className='container'>
-//       <h2 className='add-product'>PRODUCT REGISTRATION</h2>
-//       <form id="reg_product" onSubmit={sendData} ref={formRef}>
-//         <label className="field" htmlFor="name">Product name*</label><br></br>
-//         <input type="text" id="name" name="name" placeholder="Product name" novalidate autoFocus required></input><br></br><br></br>
-//         <label className="field" htmlFor="desccription">Description</label><br></br>
-//         <input type="text" id="description" name="description" placeholder="Description"></input><br></br><br></br>
-//         <button className="submit" type="submit" value="Submit">Submit</button>
-//         </form>
-//     </main>
-//   );
-// }
