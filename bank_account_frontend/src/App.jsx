@@ -5,6 +5,7 @@ import Footer from './components/Footer';
 import Login from './components/pages/Login.jsx';
 import Signup from './components/pages/Signup.jsx';
 import Verification from './components/pages/Verification.jsx';
+import Dashboard from './components/pages/Dashboard.jsx';
 import './assets/fonts/Monofett/Monofett-Regular.ttf';
  
 function App() {
@@ -17,6 +18,7 @@ function App() {
           <Route path='/login' element={<Login />} />
           <Route path='/signup' element={<Signup />} />
           <Route path='/signup/verification' element={<Verification />} />
+          <Route path='/dashboard' element={<Dashboard />} />
 
         </Routes>
         <Footer />
