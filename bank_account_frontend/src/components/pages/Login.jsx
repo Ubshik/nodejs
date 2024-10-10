@@ -6,7 +6,8 @@ import './Pages.css';
 //TODO 
 //2)send request: + => redirect to user page or - => stay here + incorrect data
 //4)check useRef => remove
-//5)if success => redirect to dashboard, fail => show a rectangle with a message => reload this page
+//5)if success => welcome, UserName => redirect to dashboard, 
+//6)if fail => show a rectangle with a message => reload this page
 export default function Login () {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
