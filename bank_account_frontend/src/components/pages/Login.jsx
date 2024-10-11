@@ -33,7 +33,7 @@ export default function Login () {
         navigate("/signup");
     }
 
-    const formRef = useRef();
+    // const formRef = useRef();
 
     const sendData = (e) => {
         console.log("press submit in login form");
@@ -43,7 +43,8 @@ export default function Login () {
     return (
         <main>
             <h1> Log in</h1>
-            <form id="login_form" onSubmit={sendData} ref={formRef}>
+            {/* <form id="login_form" onSubmit={sendData} ref={formRef}> */}
+            <form id="login_form" onSubmit={sendData}>
                 <label className="field" htmlFor="email">Email:</label><br></br>
                 <input type="email" id="email" name="Email" onChange={receiveInputEmail} autoFocus required></input>
                 <br></br><br></br><br></br>
