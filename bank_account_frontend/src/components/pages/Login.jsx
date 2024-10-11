@@ -1,5 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Eyeicon from '../../assets/icons/eye-fill.svg';
+import Eyeofficon from '../../assets/icons/eye-off.svg';
 import './Pages.css';
 
 
@@ -11,6 +13,7 @@ import './Pages.css';
 export default function Login () {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [showPassword, setShowPassword] = useState(false);
 
     function receiveInputEmail(e) {
         setEmail(e.target.value);
@@ -18,6 +21,10 @@ export default function Login () {
 
     function receiveInputPassword(e) {
         setPassword(e.target.value);
+    }
+
+    const handleShowPassword = () => {
+        setShowPassword(!showPassword);
     }
 
     const navigate = useNavigate();
@@ -41,7 +48,12 @@ export default function Login () {
                 <input type="email" id="email" name="Email" onChange={receiveInputEmail} autoFocus required></input>
                 <br></br><br></br><br></br>
                 <label className="field" htmlFor="password">Password:</label><br></br>
-                <input type="password" id="password" name="Password" onChange={receiveInputPassword} required></input><br></br>
+                <div> 
+                    <input type={(showPassword === true)? "text": "password"} id="password" name="Password" onChange={receiveInputPassword} required></input>
+                    <span className='password-eye'>
+                        {(showPassword === true)? <img src={Eyeicon} onClick={handleShowPassword}/>:<img src={Eyeofficon} onClick={handleShowPassword}/>}
+                    </span>
+                </div>
                 <span>
                     <a id="link_sign_up" onClick={linkToSignUp}>sign up</a>
                 </span>

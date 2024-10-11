@@ -76,9 +76,10 @@ input {
 }
 
 .submit {
-  width: 26vw;
-  height: 7vh;
+  width: 250px;
+  height: 50px;
   padding: 0px;
+  margin-top: 30px;
   background-color: #0a3d03;
   border: 0.8px solid black;
   color: white;

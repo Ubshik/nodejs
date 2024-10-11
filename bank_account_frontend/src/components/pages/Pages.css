@@ -63,3 +63,8 @@ span {
     outline: none;
     color: #28942F;
   }
+
+  .password-eye {
+    margin-top: -50px;
+    opacity: 0.35;
+  }
