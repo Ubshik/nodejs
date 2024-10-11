@@ -48,12 +48,10 @@ export default function Login () {
                 <input type="email" id="email" name="Email" onChange={receiveInputEmail} autoFocus required></input>
                 <br></br><br></br><br></br>
                 <label className="field" htmlFor="password">Password:</label><br></br>
-                <div> 
-                    <input type={(showPassword === true)? "text": "password"} id="password" name="Password" onChange={receiveInputPassword} required></input>
-                    <span className='password-eye'>
-                        {(showPassword === true)? <img src={Eyeicon} onClick={handleShowPassword}/>:<img src={Eyeofficon} onClick={handleShowPassword}/>}
-                    </span>
-                </div>
+                <input type={(showPassword === true)? "text": "password"} id="password" name="Password" onChange={receiveInputPassword} autocomplete="new-password" required></input>
+                <span className='password-eye'>
+                    {(showPassword === true)? <img src={Eyeicon} onClick={handleShowPassword}/>:<img src={Eyeofficon} onClick={handleShowPassword}/>}
+                </span>
                 <span>
                     <a id="link_sign_up" onClick={linkToSignUp}>sign up</a>
                 </span>

@@ -43,20 +43,17 @@ export default function Signup () {
             <h1> Registration form</h1>
             <form id="signup_form" onSubmit={sendData}>
                 <label className="field" htmlFor="email">Email:</label><br></br>
-                <input type="email" id="email" name="Email" onChange={receiveInputEmail} autoFocus required></input>
+                <input type="email" id="email" name="Email" onChange={receiveInputEmail}   autoFocus required></input>
                 <br/><br/>
                 <label className="field" htmlFor="phone">Phone:</label><br></br>
-                <input type="phone" id="phone" name="Phone" onChange={receiveInputPhone} required></input>
+                <input type="phone" id="phone" name="Phone" onChange={receiveInputPhone} pattern='(0)\d{9}' required></input>
                 <br/><br/>
                 <label className="field" htmlFor="password">Password:</label><br></br>
-                <div> 
-                    <input type={(showPassword === true)? "text": "password"} id="password" name="Password" onChange={receiveInputPassword} required></input>
-                    <span className='password-eye'>
-                        {(showPassword === true)? <img src={Eyeicon} onClick={handleShowPassword}/>:<img src={Eyeofficon} onClick={handleShowPassword}/>}
-                    </span>
-                </div>
-                <br></br>
-                <br/>
+                <input type={(showPassword === true)? "text": "password"} id="password" name="Password" onChange={receiveInputPassword} autocomplete="new-password" required></input>
+                <span className='password-eye'>
+                    {(showPassword === true)? <img src={Eyeicon} onClick={handleShowPassword}/>:<img src={Eyeofficon} onClick={handleShowPassword}/>}
+                </span>
+                <br/><br/>
                 <span className='span_submit span_submit_signup'>
                     <button className="submit" type="submit" value="Submit">SUBMIT</button>
                 </span>

@@ -66,5 +66,8 @@ span {
 
   .password-eye {
     margin-top: -50px;
+    margin-left: 300px;
     opacity: 0.35;
+    width: 55px;
+    height: 55px;
   }
