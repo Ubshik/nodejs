@@ -7,19 +7,17 @@ import './Pages.css';
 
 //TODO:
 //1)add sendData
-//2)add email validation
-//3)add phone validation
-//4)add password validation
-//5)you can validate when all form is filled
 //*I removed useRef
 //*https://www.geeksforgeeks.org/how-to-create-popup-box-in-reactjs/    => pop up window
 export default function Signup () {
+    console.log("START signup");
     const URL_SIGNUP = "http://127.0.0.1:3000/api/v1/signup";
 
     const [email, setEmail] = useState("");
     const [phone, setPhone] = useState("");
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
+    const [badRequest, setBadRequest] = useState(false);
 
     const navigate = useNavigate();
 
@@ -63,28 +61,37 @@ export default function Signup () {
         } else {
             //TODO here should be pop up message
             // navigate("/fail");
-            <Popup modal nested>
-                {
-                    () => (
-                        <div className='popup_window'>
-                            <div className='popup_title'>
-                                ERROR:
-                            </div>
-                            <div className='popup_content'>
-                                {json?.error}
-                            </div>
-                            <div>
-                                <button className='submit popup_button' onClick={() => navigate("/signup")}>
-                                    OK
-                                </button>
-                            </div>
-                        </div>
-                    )
-                }
-            </Popup>
+            // <Popup modal nested>
+            //     {
+            //         () => (
+            //             <div className='popup_window'>
+            //                 <div className='popup_title'>
+            //                     ERROR:
+            //                 </div>
+            //                 <div className='popup_content'>
+            //                     {json?.error}
+            //                 </div>
+            //                 <div>
+            //                     <button className='submit popup_button' onClick={() => navigate("/signup")}>
+            //                         OK
+            //                     </button>
+            //                 </div>
+            //             </div>
+            //         )
+            //     }
+            // </Popup>
         };
 
         return null;
+    }
+
+    const test = () => {
+        console.log('hey');
+        console.log(email);
+        console.log(phone);
+        setBR();
+        console.log("bR: " + badRequest);
+        navigate("/dashboard");
     }
 
     return (
@@ -92,13 +99,13 @@ export default function Signup () {
             <h1> Registration form</h1>
             <form id="signup_form" onSubmit={sendData}>
                 <label className="field" htmlFor="email">Email:</label><br></br>
-                <input type="email" id="email" name="Email" onChange={receiveInputEmail} pattern='^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$'  autoFocus required></input>
+                <input type="email" id="email" name="Email" onChange={receiveInputEmail} autoFocus autoComplete="new-password" required></input>
                 <br/><br/>
                 <label className="field" htmlFor="phone">Phone:</label><br></br>
                 <input type="phone" id="phone" name="Phone" onChange={receiveInputPhone} pattern='(0)\d{9}' required></input>
                 <br/><br/>
                 <label className="field" htmlFor="password">Password:</label><br></br>
-                <input type={(showPassword === true)? "text": "password"} id="password" name="Password" onChange={receiveInputPassword} autocomplete="new-password" required></input>
+                <input type={(showPassword === true)? "text": "password"} id="password" name="Password" onChange={receiveInputPassword} autoComplete="new-password" required></input>
                 <span className='password-eye'>
                     {(showPassword === true)? <img src={Eyeicon} onClick={handleShowPassword}/>:<img src={Eyeofficon} onClick={handleShowPassword}/>}
                 </span>
@@ -108,5 +115,5 @@ export default function Signup () {
                 </span>
             </form>
         </main>
-    )
+    );
 }

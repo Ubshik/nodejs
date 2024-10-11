@@ -46,10 +46,10 @@ export default function Login () {
             {/* <form id="login_form" onSubmit={sendData} ref={formRef}> */}
             <form id="login_form" onSubmit={sendData}>
                 <label className="field" htmlFor="email">Email:</label><br></br>
-                <input type="email" id="email" name="Email" onChange={receiveInputEmail} autoFocus required></input>
+                <input type="email" id="email" name="Email" onChange={receiveInputEmail} autoComplete="new-password" autoFocus required></input>
                 <br></br><br></br><br></br>
                 <label className="field" htmlFor="password">Password:</label><br></br>
-                <input type={(showPassword === true)? "text": "password"} id="password" name="Password" onChange={receiveInputPassword} autocomplete="new-password" required></input>
+                <input type={(showPassword === true)? "text": "password"} id="password" name="Password" onChange={receiveInputPassword} autoComplete="new-password" required></input>
                 <span className='password-eye'>
                     {(showPassword === true)? <img src={Eyeicon} onClick={handleShowPassword}/>:<img src={Eyeofficon} onClick={handleShowPassword}/>}
                 </span>
