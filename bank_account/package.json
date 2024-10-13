@@ -1,0 +1,32 @@
+{
+  "name": "bank_account",
+  "version": "1.0.0",
+  "description": "It is a study project where backend is Nodejs + Express + Mongoose",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Ubshik/nodejs/tree/admin-friendly"
+  },
+  "keywords": [
+    "bank",
+    "authentication",
+    "authorization",
+    "token"
+  ],
+  "author": "ubshik",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "ajv": "^8.17.1",
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.7.1",
+    "nodemailer": "^6.9.15"
+  }
+}
