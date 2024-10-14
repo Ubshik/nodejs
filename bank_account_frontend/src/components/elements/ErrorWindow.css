@@ -1,0 +1,38 @@
+.popup_window {
+    width: 400px;
+    height: 400px;
+    background-color: #EBFFE7;
+    border: 6px solid #7A0505;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
+    border-radius: 5px;
+    position: absolute;
+    top: 45vh;
+    left: 50vw;
+    transform: translate(-50%, -50%);
+  }
+
+  .popup_title {
+    font-family: "ZenDots";
+    font-size: 3em;
+    font-weight: 700;
+    color: #9C1515;
+    margin-top: 40px;
+    
+  }
+
+  .popup_content {
+    font-family: "ZenDots";
+    font-size: 1.6em;
+    font-weight: 400;
+    align-self: center;
+    margin-top: 20px;
+    margin-bottom: 45px;
+  }
+
+  .popup_button {
+    align-self: end;
+    justify-self: end;
+  }

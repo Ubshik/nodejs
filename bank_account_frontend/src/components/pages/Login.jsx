@@ -56,7 +56,7 @@ export default function Login () {
                 <span>
                     <a id="link_sign_up" onClick={linkToSignUp}>sign up</a>
                 </span>
-                <br></br><br></br><br></br>
+                <br/>
                 <span className='span_submit'>
                     <button className="submit" type="submit" value="Submit">SUBMIT</button>
                 </span>

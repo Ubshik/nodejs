@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Popup from 'reactjs-popup';
+// import Popup from 'reactjs-popup';
 import Eyeicon from '../../assets/icons/eye-fill.svg';
 import Eyeofficon from '../../assets/icons/eye-off.svg';
+import ErrorWindow from '../elements/ErrorWindow.jsx';
 import './Pages.css';
 
 //TODO:
@@ -17,7 +18,7 @@ export default function Signup () {
     const [phone, setPhone] = useState("");
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
-    const [badRequest, setBadRequest] = useState(false);
+    const [badRequest, setBadRequest] = useState("");
 
     const navigate = useNavigate();
 
@@ -35,6 +36,12 @@ export default function Signup () {
 
     const handleShowPassword = () => {
         setShowPassword(!showPassword);
+    }
+
+    const showErrorWindow = () => {
+        if (badRequest !== "") {
+            return <ErrorWindow message={badRequest} link='/signup'></ErrorWindow>
+        }
     }
 
     const sendData = async(e) => {
@@ -85,19 +92,16 @@ export default function Signup () {
         return null;
     }
 
-    const test = () => {
+    const test = (e) => {
+        e.preventDefault();
         console.log('hey');
-        console.log(email);
-        console.log(phone);
-        setBR();
-        console.log("bR: " + badRequest);
-        navigate("/dashboard");
+        setBadRequest("Error explanation");
     }
 
     return (
         <main>
             <h1> Registration form</h1>
-            <form id="signup_form" onSubmit={sendData}>
+            <form id="signup_form">
                 <label className="field" htmlFor="email">Email:</label><br></br>
                 <input type="email" id="email" name="Email" onChange={receiveInputEmail} autoFocus autoComplete="new-password" required></input>
                 <br/><br/>
@@ -109,11 +113,19 @@ export default function Signup () {
                 <span className='password-eye'>
                     {(showPassword === true)? <img src={Eyeicon} onClick={handleShowPassword}/>:<img src={Eyeofficon} onClick={handleShowPassword}/>}
                 </span>
-                <br/><br/>
-                <span className='span_submit span_submit_signup'>
-                    <button className="submit" type="submit" value="Submit">SUBMIT</button>
+                <br/>
+                <span className='span_submit'>
+                    <button className="submit" onClick={test} type="submit" value="Submit">SUBMIT</button>
                 </span>
             </form>
+
+            <div>
+                {
+                    // badRequest !== "" ? <h1>Thank you</h1> : false
+                    badRequest !== "" ? <ErrorWindow message={badRequest} function={setBadRequest}/> : false
+                }
+            </div>
+
         </main>
     );
 }

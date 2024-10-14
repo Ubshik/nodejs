@@ -7,6 +7,8 @@ span {
 
 .span_submit {
     justify-content: center;
+    position: absolute;
+    margin-left: 4%;
 }
 
 #link_sign_up {
@@ -17,10 +19,6 @@ span {
     font-weight: 1000;
     font-size: 1.6em;
     text-decoration: underline;
-}
-
-.span_submit_signup {
-    margin-top: 3%;
 }
 
 .comment_container {
@@ -70,39 +68,4 @@ span {
     opacity: 0.35;
     width: 55px;
     height: 55px;
-  }
-
-  .popup_window {
-    width: 400px;
-    height: 400px;
-    background-color: #EBFFE7;
-    border: 6px solid #7A0505;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-items: center;
-    border-radius: 5px;
-  }
-
-  .popup_title {
-    font-family: "ZenDots";
-    font-size: 3em;
-    font-weight: 700;
-    color: #9C1515;
-    margin-top: 40px;
-    
-  }
-
-  .popup_content {
-    font-family: "ZenDots";
-    font-size: 1.6em;
-    font-weight: 400;
-    align-self: center;
-    margin-top: 20px;
-    margin-bottom: 45px;
-  }
-
-  .popup_button {
-    align-self: end;
-    justify-self: end;
   }
