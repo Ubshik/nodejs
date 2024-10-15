@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-// import Popup from 'reactjs-popup';
+import CurrentUserContext from '../../contexts/CurrentUserContext.js';
 import Eyeicon from '../../assets/icons/eye-fill.svg';
 import Eyeofficon from '../../assets/icons/eye-off.svg';
 import ErrorWindow from '../elements/ErrorWindow.jsx';
@@ -19,6 +19,7 @@ export default function Signup () {
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
     const [badRequest, setBadRequest] = useState("");
+    const {setCurUser} = useContext(CurrentUserContext);
 
     const navigate = useNavigate();
 
@@ -68,6 +69,7 @@ export default function Signup () {
 
         //TODO useContext to save email
         if (response.status === 201) {
+            setCurUser({email: email});
             navigate("/signup/verification");
         } else {
             console.log('set bad request message: ' + json["error"]);
