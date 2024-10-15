@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 import signupRouter from './routes/signupRouter.js';
 import loginRouter from './routes/loginRouter.js';
 import logoutRouter from './routes/logoutRouter.js';
@@ -11,6 +12,7 @@ import mongoose from 'mongoose';
 const app = express();
 const PORT = process.env.APP_PORT;
 
+app.use(cors());
 app.use(express.json());
 app.use('/api/v1/signup', signupRouter);
 app.use('/api/v1/login', loginRouter);

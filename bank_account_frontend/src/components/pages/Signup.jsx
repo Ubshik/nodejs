@@ -38,12 +38,6 @@ export default function Signup () {
         setShowPassword(!showPassword);
     }
 
-    const showErrorWindow = () => {
-        if (badRequest !== "") {
-            return <ErrorWindow message={badRequest} link='/signup'></ErrorWindow>
-        }
-    }
-
     const sendData = async(e) => {
         e.preventDefault();
         console.log("press submit in registration form");
@@ -54,42 +48,33 @@ export default function Signup () {
             password: password
         };
 
+        const new_user_json = JSON.stringify(new_user);
+
+        console.log("signup_fe new_user: " + new_user_json);
+
         const response = await fetch(URL_SIGNUP, {
             method: "POST",
-            body: JSON.stringify(new_user),
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: new_user_json,
         });
 
         console.log(response.status);
         const json = await response.json();
+        json["status"] = response.status;
+
+        console.log("signup_fe response: " + json)
 
         //TODO useContext to save email
         if (response.status === 201) {
             navigate("/signup/verification");
         } else {
-            //TODO here should be pop up message
-            // navigate("/fail");
-            // <Popup modal nested>
-            //     {
-            //         () => (
-            //             <div className='popup_window'>
-            //                 <div className='popup_title'>
-            //                     ERROR:
-            //                 </div>
-            //                 <div className='popup_content'>
-            //                     {json?.error}
-            //                 </div>
-            //                 <div>
-            //                     <button className='submit popup_button' onClick={() => navigate("/signup")}>
-            //                         OK
-            //                     </button>
-            //                 </div>
-            //             </div>
-            //         )
-            //     }
-            // </Popup>
+            console.log('set bad request message: ' + json["error"]);
+            setBadRequest(json["error"]);
         };
 
-        return null;
+        return json;
     }
 
     const test = (e) => {
@@ -115,7 +100,7 @@ export default function Signup () {
                 </span>
                 <br/>
                 <span className='span_submit'>
-                    <button className="submit" onClick={test} type="submit" value="Submit">SUBMIT</button>
+                    <button className="submit" onClick={sendData} type="submit" value="Submit">SUBMIT</button>
                 </span>
             </form>
 

@@ -8,7 +8,8 @@ import checkVerificationEmailCode from '../middlewares/verificationEmailCodeMidd
 
 const router = express.Router();
 
-router.post('/', checkSchema.verifySchema,
+router.post('/', 
+                    // checkSchema.verifySchema,
                     checkEmail.verifyEmail,
                     checkPhone.verifyPhone,
                     // checkPassword.verifyPassword,

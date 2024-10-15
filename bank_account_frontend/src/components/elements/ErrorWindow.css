@@ -27,9 +27,11 @@
     font-family: "ZenDots";
     font-size: 1.6em;
     font-weight: 400;
-    align-self: center;
+    text-align: center;
     margin-top: 20px;
     margin-bottom: 45px;
+    margin-left: 10px;
+    margin-right: 10px;
   }
 
   .popup_button {
