@@ -19,8 +19,18 @@
     font-size: 3em;
     font-weight: 700;
     color: #9C1515;
+    margin-top: 40px;    
+  }
+
+  .popup_title_success {
+    font-family: "ZenDots";
+    font-size: 3em;
+    font-weight: 700;
+    color: #286905;
     margin-top: 40px;
-    
+    text-align: center;
+    margin-left: 10px;
+    margin-right: 10px;
   }
 
   .popup_content {
@@ -37,4 +47,8 @@
   .popup_button {
     align-self: end;
     justify-self: end;
+  }
+
+  .success_window {
+    border: 6px solid #268808;
   }

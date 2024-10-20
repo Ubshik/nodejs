@@ -67,13 +67,12 @@ export default function Signup () {
 
         console.log("signup_fe response: " + json)
 
-        //TODO useContext to save email
         if (response.status === 201) {
             setCurUser({email: email});
             navigate("/signup/verification");
         } else {
             console.log('set bad request message: ' + json["error"]);
-            setBadRequest(json["error"]);
+            setBadRequest(json["error"].slice(0, -1));
         };
 
         return json;
