@@ -100,7 +100,6 @@ export default function Login () {
     return (
         <main>
             <h1> Log in</h1>
-            {/* <form id="login_form" onSubmit={sendData} ref={formRef}> */}
             <form id="login_form">
                 <label className="field" htmlFor="email">Email:</label><br></br>
                 <input type="email" id="email" name="Email" onChange={receiveInputEmail} autoComplete="new-password" autoFocus required></input>

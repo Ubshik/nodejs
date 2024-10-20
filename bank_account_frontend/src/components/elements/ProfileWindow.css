@@ -1,0 +1,25 @@
+ .modal {
+    width: 250px;
+    height: 100px;
+    background-color: #1C9804;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
+    border-radius: 5px;
+  }
+
+  .popup_button {
+    margin-top: 30px;
+    width: 12rem;
+    height: 2.8rem;
+    align-self: end;
+    justify-self: end;
+    font-family: "ZenDots";
+    font-weight: 700;
+    font-size: 20px;
+    border: 2px solid #0c3b03;
+    color: white;
+    background-color: #0f3607;
+    padding: 0px;
+  }
