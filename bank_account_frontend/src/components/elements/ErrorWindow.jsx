@@ -10,7 +10,7 @@ function ErrorWindow(props) {
                 ERROR:
             </div>
                 <div className='popup_content'>
-                    {props.message};
+                    {props.message}
                 </div>
             <div>
                 {/* <button className='submit popup_button' onClick={() => navigate("/signup")}> */}

@@ -33,6 +33,17 @@
     margin-right: 10px;
   }
 
+  .popup_title_greeting {
+    font-family: "ZenDots";
+    font-size: 3em;
+    font-weight: 700;
+    color: #0a3d03;
+    margin-top: 40px;
+    text-align: center;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
   .popup_content {
     font-family: "ZenDots";
     font-size: 1.6em;

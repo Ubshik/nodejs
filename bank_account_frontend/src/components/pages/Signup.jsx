@@ -6,10 +6,8 @@ import Eyeofficon from '../../assets/icons/eye-off.svg';
 import ErrorWindow from '../elements/ErrorWindow.jsx';
 import './Pages.css';
 
-//TODO:
-//1)add sendData
-//*I removed useRef
 //*https://www.geeksforgeeks.org/how-to-create-popup-box-in-reactjs/    => pop up window
+
 export default function Signup () {
     console.log("START signup");
     const URL_SIGNUP = "http://127.0.0.1:3000/api/v1/signup";
@@ -72,16 +70,10 @@ export default function Signup () {
             navigate("/signup/verification");
         } else {
             console.log('set bad request message: ' + json["error"]);
-            setBadRequest(json["error"].slice(0, -1));
+            setBadRequest(json["error"]);
         };
 
         return json;
-    }
-
-    const test = (e) => {
-        e.preventDefault();
-        console.log('hey');
-        setBadRequest("Error explanation");
     }
 
     return (

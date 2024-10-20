@@ -1,13 +1,9 @@
 import React, { useState, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
 import CurrentUserContext from '../../contexts/CurrentUserContext.js';
 import ErrorWindow from '../elements/ErrorWindow.jsx';
 import SuccessWindow from '../elements/SuccessWindow.jsx';
 import './Pages.css';
 
-//TODO
-//1)add validation for 6 numbers
-//2)implement sendData 
 export default function Verification () {
     console.log("START signup/verification");
     const URL_SIGNUP = "http://127.0.0.1:3000/api/v1/signup/verification";
@@ -17,8 +13,6 @@ export default function Verification () {
     const [successResponse, setSuccessResponse] = useState("");
     const {curUser} = useContext(CurrentUserContext);
     const {setCurUser} = useContext(CurrentUserContext);
-
-    const navigate = useNavigate();
 
     function receiveInputCode(e) {
         setCode(e.target.value);
@@ -57,7 +51,7 @@ export default function Verification () {
             setSuccessResponse(json["message"]);
         } else {
             console.log('set bad request message: ' + json["error"]);
-            setBadRequest(json["error"].slice(0, -1));
+            setBadRequest(json["error"]);
         };
 
         return json;

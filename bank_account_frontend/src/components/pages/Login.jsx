@@ -1,19 +1,26 @@
-import React, { useRef, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import CurrentUserContext from '../../contexts/CurrentUserContext.js';
+import TokenContext from '../../contexts/TokenContext.js';
+import ErrorWindow from '../elements/ErrorWindow.jsx';
+import SuccessWindow from '../elements/SuccessWindow.jsx';
 import Eyeicon from '../../assets/icons/eye-fill.svg';
 import Eyeofficon from '../../assets/icons/eye-off.svg';
 import './Pages.css';
 
-
-//TODO 
-//2)send request: + => redirect to user page or - => stay here + incorrect data
-//4)check useRef => remove
-//5)if success => welcome, UserName => redirect to dashboard, 
-//6)if fail => show a rectangle with a message => reload this page
 export default function Login () {
+    console.log("START login");
+    const URL_SIGNUP = "http://127.0.0.1:3000/api/v1/login";
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
+    const [successResponse, setSuccessResponse] = useState(false);
+    const [badRequest, setBadRequest] = useState("");
+    const {setCurUser} = useContext(CurrentUserContext);
+    const {setToken} = useContext(TokenContext);
+
+    const navigate = useNavigate();
 
     function receiveInputEmail(e) {
         setEmail(e.target.value);
@@ -27,27 +34,77 @@ export default function Login () {
         setShowPassword(!showPassword);
     }
 
-    const navigate = useNavigate();
-
-    function linkToSignUp() {
+    const linkToSignUp = () => {
         navigate("/signup");
     }
 
-    // const formRef = useRef();
-
-    const sendData = (e) => {
+    const sendData = async(e) => {
+        e.preventDefault();
         console.log("press submit in login form");
-        return null;
+
+        const user_login = {
+            email: email,
+            password: password
+        };
+
+        const user_login_json = JSON.stringify(user_login);
+
+        console.log("login_fe user_login: " + user_login_json);
+
+        const response = await fetch(URL_SIGNUP, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: user_login_json,
+        });
+
+        console.log(response.status);
+        const json = await response.json();
+        json["status"] = response.status;
+
+        console.log("login_fe response: " + json)
+
+        if (response.status === 200) {
+            console.log('login is succeed: ' + json["token"]);
+            setCurUser({email: email});
+            setToken({token: json["token"]});
+            setSuccessResponse(true);
+        } else {
+            console.log('set bad request message: ' + json["error"]);
+            setBadRequest(json["error"]);
+        };
+
+        return json;
+    }
+
+    function greeting() {
+        const today = new Date();
+        const curHr = today.getHours();
+
+        if (curHr >= 23 && curHr < 5) {
+            return 'Good night, ';
+        } else if (curHr < 12) {
+            return 'Good morning, ';
+        } else if (curHr < 17) {
+            return 'Good afternoon, ';
+        } else {
+            return 'Good evening, ';
+        }
+    }
+
+    function getEmail() {
+        return email;
     }
 
     return (
         <main>
             <h1> Log in</h1>
             {/* <form id="login_form" onSubmit={sendData} ref={formRef}> */}
-            <form id="login_form" onSubmit={sendData}>
+            <form id="login_form">
                 <label className="field" htmlFor="email">Email:</label><br></br>
                 <input type="email" id="email" name="Email" onChange={receiveInputEmail} autoComplete="new-password" autoFocus required></input>
-                <br></br><br></br><br></br>
+                <br/><br/><br/>
                 <label className="field" htmlFor="password">Password:</label><br></br>
                 <input type={(showPassword === true)? "text": "password"} id="password" name="Password" onChange={receiveInputPassword} autoComplete="new-password" required></input>
                 <span className='password-eye'>
@@ -58,58 +115,21 @@ export default function Login () {
                 </span>
                 <br/>
                 <span className='span_submit'>
-                    <button className="submit" type="submit" value="Submit">SUBMIT</button>
+                    <button className="submit" onClick={sendData} type="submit" value="Submit">SUBMIT</button>
                 </span>
             </form>
+
+            <div>
+                {
+                    badRequest !== "" ? <ErrorWindow message={badRequest} function={setBadRequest}/> : false
+                }
+            </div>
+
+            <div>
+                {
+                    successResponse === true ? <SuccessWindow message={greeting()} navigateTo='/dashboard' greeting /> : false
+                }
+            </div>
         </main>
     )
 }
-
-
-
-
-
-
-// import React, { useRef } from 'react';
-// import '../../App.css';
-// import '../AddProduct.css';
-// import { useNavigate } from 'react-router-dom';
-
-// export default function AddProduct() {
-//   const URL_REGISTER_PRODUCT = "http://127.0.0.1:4466/product";
-//   const URL_REGISTER_PRODUCT_COMMON = 'product';
-
-//   console.log("inside add product");
-
-//   const navigate = useNavigate();
-
-//   function getGatewayURI(path) {
-//     return `${document.location.protocol}//${document.location.hostname}:4466/${path || ''}`;
-//   }
-
-//   const formRef = useRef();
-
-//   const sendData = async (e) => {
-//     e.preventDefault();
-//     console.log("inside sendData");
-//     let formData = new FormData(formRef.current);
-//     let requestJson = JSON.stringify(Object.fromEntries(formData));
-//     console.log("request json " + requestJson);
-//     console.log("company_id " + localStorage.getItem("company_id"));
-
-//     const response  = await fetch(getGatewayURI(URL_REGISTER_PRODUCT_COMMON + "/" + localStorage.getItem("company_id")), {
-//         method: "POST",
-//         body: requestJson,
-//     });
-//     console.log(response.status);
-//     const json = await response.json();
-//     json["status"] = response.status;
-
-//     if (response.status === 201) {
-//       navigate("/success");
-//     } else {
-//       navigate("/fail");
-//     };
-
-//     return json;
-// };

@@ -1,13 +1,27 @@
 import { useNavigate } from 'react-router-dom';
+import React, { useContext, useState } from 'react';
+import CurrentUserContext from '../../contexts/CurrentUserContext.js';
 import './ErrorWindow.css';
 
 function SuccessWindow(props) {
+    const {curUser} = useContext(CurrentUserContext);
     const navigate = useNavigate();
+
+    function getEmail() {
+        return curUser.email;
+    }
 
     return (
         <div className='popup_window success_window'>
-            <div className='popup_title_success'>
-                {props.message};
+            {/* <div className='popup_title_success'> */}
+            <div className={props.greeting ? 'popup_title_greeting' : 'popup_title_success'}>
+                {props.message}
+            </div>
+
+            <div className='popup_content'>
+                {
+                    props.greeting ? getEmail() : false
+                }
             </div>
 
             <div>
