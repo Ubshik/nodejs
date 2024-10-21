@@ -1,7 +1,9 @@
-import React, { useContext, useState, useEffect } from 'react';
-import TokenContext from '../../contexts/TokenContext.js';
-import ErrorWindow from './ErrorWindow.jsx';
-import SuccessWindow from './SuccessWindow.jsx';
+import React, { useContext, useState } from 'react';
+import BalancePart from './BalancePart.jsx';
+import TransactionTable from './TransactionTable.jsx';
+// import TokenContext from '../../contexts/TokenContext.js';
+// import ErrorWindow from './ErrorWindow.jsx';
+// import SuccessWindow from './SuccessWindow.jsx';
 import '../pages/Dashboard.css';
 
 //TODO
@@ -12,68 +14,69 @@ import '../pages/Dashboard.css';
 //*https://www.freecodecamp.org/news/create-tables-using-the-react-datatable-component-library/
 function DashboardConstructor (props) {
     console.log("START dashboard_constructor");
-    const URL_TRANSACTION = "http://localhost:3000/api/v1/transaction";
+    // const URL_TRANSACTION = "http://localhost:3000/api/v1/transaction";
 
-    const [email, setEmail] = useState("");
-    const [amount, setAmount] = useState("");
-    const [successResponse, setSuccessResponse] = useState("");
-    const [badRequest, setBadRequest] = useState("");
-    const {token} = useContext(TokenContext);
+    // const [email, setEmail] = useState("");
+    // const [amount, setAmount] = useState("");
+    // const [successResponse, setSuccessResponse] = useState("");
+    // const [badRequest, setBadRequest] = useState("");
+    // const {token} = useContext(TokenContext);
 
-    function receiveInputEmail(e) {
-        setEmail(e.target.value);
-    }
+    // function receiveInputEmail(e) {
+    //     setEmail(e.target.value);
+    // }
 
-    function receiveInputAmount(e) {
-        setAmount(e.target.value);
-    }
+    // function receiveInputAmount(e) {
+    //     setAmount(e.target.value);
+    // }
 
-    const sendData = async(e) => {
-        e.preventDefault();
-        console.log("press submit in transaction form");
+    // const sendData = async(e) => {
+    //     e.preventDefault();
+    //     console.log("press submit in transaction form");
 
-        const transaction_data = {
-            addressee: email,
-            amount: parseFloat(amount.replace(",", "."))
-        };
+    //     const transaction_data = {
+    //         addressee: email,
+    //         amount: parseFloat(amount.replace(",", "."))
+    //     };
 
-        const transaction_data_json = JSON.stringify(transaction_data);
+    //     const transaction_data_json = JSON.stringify(transaction_data);
 
-        console.log("dashboard_fe transaction_data: " + transaction_data_json);
+    //     console.log("dashboard_fe transaction_data: " + transaction_data_json);
 
-        const response = await fetch(URL_TRANSACTION, {
-            method: "POST",
-            headers: {
-                'Authorization': 'Bearer ' + token?.token,
-                'Content-Type': 'application/json'
-            },
-            body: transaction_data_json,
-        });
+    //     const response = await fetch(URL_TRANSACTION, {
+    //         method: "POST",
+    //         headers: {
+    //             'Authorization': 'Bearer ' + token?.token,
+    //             'Content-Type': 'application/json'
+    //         },
+    //         body: transaction_data_json,
+    //     });
 
-        console.log(response.status);
-        const json = await response.json();
-        json["status"] = response.status;
+    //     console.log(response.status);
+    //     const json = await response.json();
+    //     json["status"] = response.status;
 
-        console.log("transaction_fe response: " + json)
+    //     console.log("transaction_fe response: " + json)
 
-        if (response.status === 200) {
-            setSuccessResponse(json["message"]);
-        } else {
-            console.log('set bad request message: ' + json["error"]);
-            setBadRequest(json["error"]);
-        };
+    //     if (response.status === 200) {
+    //         setSuccessResponse(json["message"]);
+    //     } else {
+    //         console.log('set bad request message: ' + json["error"]);
+    //         setBadRequest(json["error"]);
+    //     };
 
-        return json;
-    }
+    //     return json;
+    // }
 
     return (
         <>
+            <BalancePart data={props.data} function={props.function} />
+            <TransactionTable data={props?.data?.transactions}/>
 
-            <div className='balance_column'>
+            {/* <div className='balance_column'>
             <div className='balance_container'>
                 <h1 className='h1_middle'>Balance: </h1>
-                {/* <h1 id='balance_amount'>{props?.data?.balance}</h1> */}
-                <h1 id='balance_amount'>100.01</h1>
+                <h1 id='balance_amount'>{props?.data?.balance}</h1>
             </div>
 
             <h1 className='h1_little transaction_tab'> Cash transfer:</h1>
@@ -106,7 +109,7 @@ function DashboardConstructor (props) {
 
             <div className='list_transaction'>
                 <h1 className='title_list_transaction'>Transactions:</h1>
-            </div>
+            </div> */}
         </>
     )
 }
