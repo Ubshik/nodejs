@@ -4,12 +4,6 @@ import ErrorWindow from './ErrorWindow.jsx';
 import SuccessWindow from './SuccessWindow.jsx';
 import '../pages/Dashboard.css';
 
-//TODO
-//2)update table if a transaction was succesed
-//3)implement pagination
-//4)add table with result data
-//*https://github.com/chelmerrox/react-data-table-tutorial/blob/main/src/components/Table.tsx
-//*https://www.freecodecamp.org/news/create-tables-using-the-react-datatable-component-library/
 function BalancePart (props) {
     console.log("START balance_part");
     const URL_TRANSACTION = "http://localhost:3000/api/v1/transaction";
@@ -84,7 +78,7 @@ function BalancePart (props) {
                 <label className="field transaction_tab" htmlFor="amount">Amount:</label><br></br>
                 <input className='transaction_tab' type="text" id="amount" name="Amount" onChange={receiveInputAmount} autoComplete="new-password" required></input>
                 <br/><br/>
-                <span className='submit_transac(item: any)tion transaction_tab'>
+                <span className='submit_transaction transaction_tab'>
                     <button className="submit" onClick={sendData} type="submit" value="Submit">SUBMIT</button>
                 </span>
             </form>
@@ -102,11 +96,6 @@ function BalancePart (props) {
             </div>
 
             </div>
-
-
-            {/* <div className='list_transaction'>
-                <h1 className='title_list_transaction'>Transactions:</h1>
-            </div> */}
         </>
     )
 }

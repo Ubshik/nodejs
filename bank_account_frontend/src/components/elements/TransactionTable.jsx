@@ -1,5 +1,6 @@
-import React, { useContext, useState, useEffect } from 'react';
-import TokenContext from '../../contexts/TokenContext.js';
+import React, { useContext, useState } from 'react';
+import DataTable from 'react-data-table-component';
+import CurrentUserContext from '../../contexts/CurrentUserContext.js';
 import ErrorWindow from './ErrorWindow.jsx';
 import SuccessWindow from './SuccessWindow.jsx';
 import '../pages/Dashboard.css';
@@ -11,67 +12,39 @@ import '../pages/Dashboard.css';
 //*https://github.com/chelmerrox/react-data-table-tutorial/blob/main/src/components/Table.tsx
 //*https://www.freecodecamp.org/news/create-tables-using-the-react-datatable-component-library/
 function TransactionTable (props) {
-    console.log("START balance_part");
-    const URL_TRANSACTION = "http://localhost:3000/api/v1/transaction";
+    console.log("START transaction_table");
+    // console.log("props.data: " + props.data);
+    // console.log("props.data.balance: " + props.data.balance);
+    // console.log("props.data.transactions: " + props.data.transactions);
 
-    const [email, setEmail] = useState("");
-    const [amount, setAmount] = useState("");
-    const [successResponse, setSuccessResponse] = useState("");
-    const [badRequest, setBadRequest] = useState("");
-    const {token} = useContext(TokenContext);
+    const[rows, setRows] = useState();
+    const {curUser} = useContext(CurrentUserContext);
 
-    function receiveInputEmail(e) {
-        setEmail(e.target.value);
-    }
+    const columns = [
+        {
+            name: "Time",
+            selector: row => row.creationTime
+        },
+        {
+            //TODO change data on backend
+            name: "Amount",
+            selector: row => (row.from === curUser.email ? row.amount * (-1) / 100 : row.amount / 100)
+        },
+        {
+            name: "From/To",
+            selector: row => (row.from === curUser.email ? row.to : row.from)
+        },
+    ]
 
-    function receiveInputAmount(e) {
-        setAmount(e.target.value);
-    }
-
-    const sendData = async(e) => {
-        e.preventDefault();
-        console.log("press submit in transaction form");
-
-        const transaction_data = {
-            addressee: email,
-            amount: parseFloat(amount.replace(",", "."))
-        };
-
-        const transaction_data_json = JSON.stringify(transaction_data);
-
-        console.log("dashboard_fe transaction_data: " + transaction_data_json);
-
-        const response = await fetch(URL_TRANSACTION, {
-            method: "POST",
-            headers: {
-                'Authorization': 'Bearer ' + token?.token,
-                'Content-Type': 'application/json'
-            },
-            body: transaction_data_json,
-        });
-
-        console.log(response.status);
-        const json = await response.json();
-        json["status"] = response.status;
-
-        console.log("transaction_fe response: " + json)
-
-        if (response.status === 200) {
-            setSuccessResponse(json["message"]);
-        } else {
-            console.log('set bad request message: ' + json["error"]);
-            setBadRequest(json["error"]);
-        };
-
-        return json;
-    }
 
     return (
         <>
-        <h1>TRANSACTIONS</h1>
-            {/* <div className='list_transaction'>
+            {console.log(props.data)}
+            <div className='list_transaction'>
                 <h1 className='title_list_transaction'>Transactions:</h1>
-            </div> */}
+
+                <DataTable columns={columns} data={props?.data?.transactions} />
+            </div>            
         </>
     )
 }
