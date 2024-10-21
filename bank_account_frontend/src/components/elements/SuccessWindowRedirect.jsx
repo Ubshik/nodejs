@@ -26,7 +26,7 @@ function SuccessWindow(props) {
 
             <div>
                 {/* <button className='submit popup_button' onClick={() => navigate("/signup")}> */}
-                <button className='submit popup_button' onClick={() => props.function("")}>
+                <button className='submit popup_button' onClick={() => navigate(props.navigateTo)}>
                     OK
                 </button>
             </div>

@@ -3,14 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import CurrentUserContext from '../../contexts/CurrentUserContext.js';
 import TokenContext from '../../contexts/TokenContext.js';
 import ErrorWindow from '../elements/ErrorWindow.jsx';
-import SuccessWindow from '../elements/SuccessWindow.jsx';
+import SuccessWindow from '../elements/SuccessWindowRedirect.jsx';
 import Eyeicon from '../../assets/icons/eye-fill.svg';
 import Eyeofficon from '../../assets/icons/eye-off.svg';
 import './Pages.css';
 
 export default function Login () {
     console.log("START login");
-    const URL_SIGNUP = "http://127.0.0.1:3000/api/v1/login";
+    const URL_LOGIN = "http://127.0.0.1:3000/api/v1/login";
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -51,7 +51,7 @@ export default function Login () {
 
         console.log("login_fe user_login: " + user_login_json);
 
-        const response = await fetch(URL_SIGNUP, {
+        const response = await fetch(URL_LOGIN, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
@@ -82,7 +82,7 @@ export default function Login () {
         const today = new Date();
         const curHr = today.getHours();
 
-        if (curHr >= 23 && curHr < 5) {
+        if (curHr >= 23 || curHr < 5) {
             return 'Good night, ';
         } else if (curHr < 12) {
             return 'Good morning, ';
