@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import CurrentUserContext from '../../contexts/CurrentUserContext.js';
 import TokenContext from '../../contexts/TokenContext.js';
 import ErrorWindow from '../elements/ErrorWindow.jsx';
-import SuccessWindow from '../elements/SuccessWindowRedirect.jsx';
+import SuccessWindowRedirect from '../elements/SuccessWindowRedirect.jsx';
 import Eyeicon from '../../assets/icons/eye-fill.svg';
 import Eyeofficon from '../../assets/icons/eye-off.svg';
 import './Pages.css';
@@ -120,13 +120,13 @@ export default function Login () {
 
             <div>
                 {
-                    badRequest !== "" ? <ErrorWindow message={badRequest} function={setBadRequest}/> : false
+                    badRequest !== "" ? <ErrorWindow message={badRequest} resetBadRequest={setBadRequest}/> : false
                 }
             </div>
 
             <div>
                 {
-                    successResponse === true ? <SuccessWindow message={greeting()} navigateTo='/dashboard' greeting /> : false
+                    successResponse === true ? <SuccessWindowRedirect message={greeting()} navigateTo='/dashboard' greeting /> : false
                 }
             </div>
         </main>

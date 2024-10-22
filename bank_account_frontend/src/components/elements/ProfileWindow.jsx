@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import Popup from 'reactjs-popup';
 import CurrentUserContext from '../../contexts/CurrentUserContext.js';
 import TokenContext from '../../contexts/TokenContext.js';

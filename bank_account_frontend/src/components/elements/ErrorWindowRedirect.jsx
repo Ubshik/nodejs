@@ -13,7 +13,6 @@ function ErrorWindowRedirect(props) {
                     {props.message}
                 </div>
             <div>
-                {/* <button className='submit popup_button' onClick={() => navigate("/signup")}> */}
                 <button className='submit popup_button' onClick={() => navigate(props.navigateTo)}>
                     OK
                 </button>

@@ -6,8 +6,6 @@ import Eyeofficon from '../../assets/icons/eye-off.svg';
 import ErrorWindow from '../elements/ErrorWindow.jsx';
 import './Pages.css';
 
-//*https://www.geeksforgeeks.org/how-to-create-popup-box-in-reactjs/    => pop up window
-
 export default function Signup () {
     console.log("START signup");
     const URL_SIGNUP = "http://127.0.0.1:3000/api/v1/signup";
@@ -99,8 +97,7 @@ export default function Signup () {
 
             <div>
                 {
-                    // badRequest !== "" ? <h1>Thank you</h1> : false
-                    badRequest !== "" ? <ErrorWindow message={badRequest} function={setBadRequest}/> : false
+                    badRequest !== "" ? <ErrorWindow message={badRequest} resetBadRequest={setBadRequest}/> : false
                 }
             </div>
 

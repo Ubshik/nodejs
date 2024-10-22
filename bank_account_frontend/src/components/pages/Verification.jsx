@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import CurrentUserContext from '../../contexts/CurrentUserContext.js';
 import ErrorWindow from '../elements/ErrorWindow.jsx';
-import SuccessWindow from '../elements/SuccessWindow.jsx';
+import SuccessWindowRedirect from '../elements/SuccessWindowRedirect.jsx';
 import './Pages.css';
 
 export default function Verification () {
@@ -74,13 +74,13 @@ export default function Verification () {
 
             <div>
                 {
-                    badRequest !== "" ? <ErrorWindow message={badRequest} function={setBadRequest}/> : false
+                    badRequest !== "" ? <ErrorWindow message={badRequest} resetBadRequest={setBadRequest}/> : false
                 }
             </div>
 
             <div>
                 {
-                    successResponse !== "" ? <SuccessWindow message={successResponse} navigateTo="/"/> : false
+                    successResponse !== "" ? <SuccessWindowRedirect message={successResponse} navigateTo="/"/> : false
                 }
             </div>
         </main>

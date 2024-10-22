@@ -14,6 +14,13 @@
     transform: translate(-50%, -50%);
   }
 
+  .transaction_position {
+    position: absolute;
+    top: 27rem;
+    left: 14rem;
+    /* transform: translate(-25%, -25%); */
+  }
+
   .popup_title {
     font-family: "ZenDots";
     font-size: 3em;
@@ -58,6 +65,8 @@
   .popup_button {
     align-self: end;
     justify-self: end;
+    margin: 0;
+    padding: 0;
   }
 
   .success_window {

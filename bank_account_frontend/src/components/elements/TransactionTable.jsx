@@ -1,8 +1,6 @@
 import React, { useContext, useState } from 'react';
 import DataTable from 'react-data-table-component';
 import CurrentUserContext from '../../contexts/CurrentUserContext.js';
-import ErrorWindow from './ErrorWindow.jsx';
-import SuccessWindow from './SuccessWindow.jsx';
 import '../pages/Dashboard.css';
 
 //TODO
@@ -28,13 +26,32 @@ function TransactionTable (props) {
         {
             //TODO change data on backend
             name: "Amount",
-            selector: row => (row.from === curUser.email ? row.amount * (-1) / 100 : row.amount / 100)
+            selector: row => (row.from === curUser.email ? row.amount * (-1) / 100 : row.amount / 100),
         },
         {
             name: "From/To",
             selector: row => (row.from === curUser.email ? row.to : row.from)
         },
     ]
+
+    const tableCustomStyles = {
+        headCells: {
+          style: {
+            fontSize: '20px',
+            fontWeight: 'bold',
+            paddingLeft: '0 8px',
+            justifyContent: 'center',
+            backgroundColor: '#ebfff0'
+          },
+        },
+        cells: {
+            style: {
+              fontSize: '14px',
+              paddingLeft: '0 8px',
+              justifyContent: 'center',
+            },
+          },
+      }
 
 
     return (
@@ -43,7 +60,9 @@ function TransactionTable (props) {
             <div className='list_transaction'>
                 <h1 className='title_list_transaction'>Transactions:</h1>
 
-                <DataTable columns={columns} data={props?.data?.transactions} />
+                <div className='rows'>
+                    <DataTable customStyles={tableCustomStyles} columns={columns} data={props?.data?.transactions } />
+                </div>
             </div>            
         </>
     )

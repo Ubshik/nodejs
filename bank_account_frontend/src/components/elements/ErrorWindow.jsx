@@ -1,11 +1,8 @@
-import { useNavigate } from 'react-router-dom';
 import './ErrorWindow.css';
 
 function ErrorWindow(props) {
-    const navigate = useNavigate();
-
     return (
-        <div className='popup_window'>
+        <div className={props.transaction ? 'popup_window transaction_position' : 'popup_window'}>
             <div className='popup_title'>
                 ERROR:
             </div>
@@ -13,8 +10,7 @@ function ErrorWindow(props) {
                     {props.message}
                 </div>
             <div>
-                {/* <button className='submit popup_button' onClick={() => navigate("/signup")}> */}
-                <button className='submit popup_button' onClick={() => props.function("")}>
+                <button className='submit popup_button' onClick={() => props.resetBadRequest("")}>
                     OK
                 </button>
             </div>

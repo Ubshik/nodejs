@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import CurrentUserContext from '../../contexts/CurrentUserContext.js';
 import './ErrorWindow.css';
 
@@ -13,7 +13,6 @@ function SuccessWindow(props) {
 
     return (
         <div className='popup_window success_window'>
-            {/* <div className='popup_title_success'> */}
             <div className={props.greeting ? 'popup_title_greeting' : 'popup_title_success'}>
                 {props.message}
             </div>
@@ -25,7 +24,6 @@ function SuccessWindow(props) {
             </div>
 
             <div>
-                {/* <button className='submit popup_button' onClick={() => navigate("/signup")}> */}
                 <button className='submit popup_button' onClick={() => navigate(props.navigateTo)}>
                     OK
                 </button>

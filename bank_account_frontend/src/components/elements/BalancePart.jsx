@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState } from 'react';
 import TokenContext from '../../contexts/TokenContext.js';
 import ErrorWindow from './ErrorWindow.jsx';
 import SuccessWindow from './SuccessWindow.jsx';
@@ -51,7 +51,9 @@ function BalancePart (props) {
         console.log("transaction_fe response: " + json)
 
         if (response.status === 200) {
-            props.function(true);
+            props.markTransactionsuccess(true);
+            setEmail("");
+            setAmount("");
             setSuccessResponse(json["message"]);
         } else {
             console.log('set bad request message: ' + json["error"]);
@@ -73,10 +75,10 @@ function BalancePart (props) {
             <h1 className='h1_little transaction_tab'> Cash transfer:</h1>
             <form id="transaction_form" >
                 <label className="field transaction_tab" htmlFor="email">Beneficiary (email):</label><br></br>
-                <input className='transaction_tab' type="email" id="email" name="Email" onChange={receiveInputEmail} autoComplete="new-password" autoFocus required></input>
+                <input className='transaction_tab' type="email" id="email" name="Email" onChange={receiveInputEmail} value={email} autoFocus required></input>
                 <br/><br/>
                 <label className="field transaction_tab" htmlFor="amount">Amount:</label><br></br>
-                <input className='transaction_tab' type="text" id="amount" name="Amount" onChange={receiveInputAmount} autoComplete="new-password" required></input>
+                <input className='transaction_tab' type="text" id="amount" name="Amount" onChange={receiveInputAmount} value={amount} required></input>
                 <br/><br/>
                 <span className='submit_transaction transaction_tab'>
                     <button className="submit" onClick={sendData} type="submit" value="Submit">SUBMIT</button>
@@ -85,13 +87,13 @@ function BalancePart (props) {
 
             <div>
                 {
-                    badRequest !== "" ? <ErrorWindow message={badRequest} function={setBadRequest}/> : false
+                    badRequest !== "" ? <ErrorWindow message={badRequest} resetBadRequest={setBadRequest} transaction /> : false
                 }
             </div>
 
             <div>
                 {
-                    successResponse !== "" ? <SuccessWindow message={successResponse} function={setSuccessResponse} /> : false
+                    successResponse !== "" ? <SuccessWindow message={successResponse} resetSuccessResponse={setSuccessResponse} transaction /> : false
                 }
             </div>
 

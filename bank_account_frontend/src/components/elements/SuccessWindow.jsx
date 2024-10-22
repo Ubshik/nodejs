@@ -1,19 +1,16 @@
-import { useNavigate } from 'react-router-dom';
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import CurrentUserContext from '../../contexts/CurrentUserContext.js';
 import './ErrorWindow.css';
 
 function SuccessWindow(props) {
     const {curUser} = useContext(CurrentUserContext);
-    const navigate = useNavigate();
 
     function getEmail() {
         return curUser.email;
     }
 
     return (
-        <div className='popup_window success_window'>
-            {/* <div className='popup_title_success'> */}
+        <div className={props.transaction ? 'popup_window success_window transaction_position' : 'popup_window success_window'}>
             <div className={props.greeting ? 'popup_title_greeting' : 'popup_title_success'}>
                 {props.message}
             </div>
@@ -25,8 +22,7 @@ function SuccessWindow(props) {
             </div>
 
             <div>
-                {/* <button className='submit popup_button' onClick={() => navigate("/signup")}> */}
-                <button className='submit popup_button' onClick={() => props.function("")}>
+                <button className='submit popup_button' onClick={() => props.resetSuccessResponse("")}>
                     OK
                 </button>
             </div>
