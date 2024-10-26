@@ -28,8 +28,8 @@ const verifyTransaction = async(request, response, next) => {
         return response.status(400).json({error: "Amount can not be less or equal zero"});
     }
 
-    const sender = await userService.getUserByEmail(request.email);
-    if (request.body.amount > sender.balance) {
+    const sender = await userService.getUserWithDataAboutAccount(request.email);
+    if (request.body.amount > sender.account.balance) {
         return response.status(400).json({error: "Amount can not be more than balance"});
     }
 

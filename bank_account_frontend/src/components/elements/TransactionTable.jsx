@@ -21,16 +21,19 @@ function TransactionTable (props) {
     const columns = [
         {
             name: "Time",
-            selector: row => row.creationTime
+            selector: row => row.creationTime,
+            sortable: true,
         },
         {
             //TODO change data on backend
             name: "Amount",
             selector: row => (row.from === curUser.email ? row.amount * (-1) / 100 : row.amount / 100),
+            sortable: true,
         },
         {
             name: "From/To",
-            selector: row => (row.from === curUser.email ? row.to : row.from)
+            selector: row => (row.from === curUser.email ? row.to : row.from),
+            sortable: true,
         },
     ]
 
@@ -61,7 +64,12 @@ function TransactionTable (props) {
                 <h1 className='title_list_transaction'>Transactions:</h1>
 
                 <div className='rows'>
-                    <DataTable customStyles={tableCustomStyles} columns={columns} data={props?.data?.transactions } />
+                    <DataTable customStyles={tableCustomStyles} 
+                        columns={columns} data={props?.data?.transactions}
+                        pagination 
+                        paginationPerPage='8'
+                        paginationRowsPerPageOptions={[6, 8, 10]}
+                        />
                 </div>
             </div>            
         </>

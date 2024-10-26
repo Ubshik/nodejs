@@ -6,6 +6,13 @@ const getUserByEmail = async(email) => {
     return user;
 }
 
+const getUserWithDataAboutAccount = async(email) => {
+    console.log("service: inside getUserWithDataAboutAccount");
+    const user = await userDAO.getUserByEmailWithAllCorrespondData(email);
+    return user;
+}
+
 export default {
-    getUserByEmail
+    getUserByEmail,
+    getUserWithDataAboutAccount
 }
