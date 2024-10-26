@@ -29,7 +29,7 @@ function App() {
             <Route path='/signup' element={<Signup />} />
             <Route path='/signup/verification' element={<Verification />} />
             <Route path='/dashboard' element={<Dashboard />} />
-            //TODO add * to empty page
+            <Route path='/*' element={<Login />} />
           </Routes>
           <Footer />
         </TokenContext.Provider>
