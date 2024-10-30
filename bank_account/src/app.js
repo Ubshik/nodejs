@@ -13,6 +13,7 @@ const app = express();
 const PORT = process.env.APP_PORT;
 
 app.use(cors());
+app.use(express.static("frontend"));
 app.use(express.json());
 app.use('/api/v1/signup', signupRouter);
 app.use('/api/v1/login', loginRouter);

@@ -1,0 +1,23 @@
+version: '1.0'
+
+services:
+  nodejs:
+    image: bank_app
+    build: .
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongodb
+
+  mongodb:
+    image: bitnami/mongodb:5.0
+    # environment:
+    #   - MONGODB_INITDB_ROOT_USERNAME=user
+    #   - MONGODB_INITDB_ROOT_PASSWORD=pass
+    ports:
+      - "27017:27017"
+    # volumes:
+    #   - type: bind
+    #     source: /home/ubshik/github/mongodb_data
+    #     target: /bitnami/mongodb/
+      # - /home/ubshik/github/mongodb_data:/bitnami/mongodb

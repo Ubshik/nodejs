@@ -2,6 +2,7 @@
 
 1) To run application: npm run dev
 2) To add any dependency: npm install 'package-name'
+3) To build a project: npm run build
 
 
 
