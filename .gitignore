@@ -1,6 +1,5 @@
 *
 node_modules/
-.env
 
 !.gitignore
 !*/
@@ -15,3 +14,5 @@ node_modules/
 !*.json
 !*.md
 !*.env
+!Dockerfile
+!*.yaml
