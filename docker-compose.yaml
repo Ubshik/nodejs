@@ -1,4 +1,4 @@
-version: '1.0'
+version: '2'
 
 services:
   nodejs:
@@ -7,17 +7,63 @@ services:
     ports:
       - "3000:3000"
     depends_on:
-      - mongodb
-
-  mongodb:
-    image: bitnami/mongodb:5.0
-    # environment:
-    #   - MONGODB_INITDB_ROOT_USERNAME=user
-    #   - MONGODB_INITDB_ROOT_PASSWORD=pass
+      - mongodb-primary
+      
+  mongodb-primary:
+    image: bitnami/mongodb
+    user: root
+    volumes:
+      - ./mongodb-persistence/bitnami:/bitnami
+    # networks:
+    #   - parse_network
+    environment:
+      - MONGODB_REPLICA_SET_MODE=primary
+      - MONGODB_REPLICA_SET_KEY=123456789
+      - MONGODB_ROOT_USERNAME=admin-123
+      - MONGODB_ROOT_PASSWORD=password-123
+      - MONGODB_USERNAME=admin-123
+      - MONGODB_PASSWORD=password-123
+      - MONGODB_DATABASE=bank_app
     ports:
-      - "27017:27017"
-    # volumes:
-    #   - type: bind
-    #     source: /home/ubshik/github/mongodb_data
-    #     target: /bitnami/mongodb/
-      # - /home/ubshik/github/mongodb_data:/bitnami/mongodb
+      - 27017:27017
+
+  mongodb-secondary:
+    image: bitnami/mongodb
+    depends_on:
+      - mongodb-primary
+    environment:
+      - MONGODB_REPLICA_SET_MODE=secondary
+      - MONGODB_REPLICA_SET_KEY=123456789
+      - MONGODB_PRIMARY_HOST=mongodb-primary
+      - MONGODB_PRIMARY_PORT_NUMBER=27017
+      - MONGODB_PRIMARY_ROOT_USERNAME=admin-123
+      - MONGODB_PRIMARY_ROOT_PASSWORD=password-123
+    # networks:
+    #   - parse_network
+    ports:
+      - 27027:27017
+
+  mongodb-arbiter:
+    image: bitnami/mongodb
+    depends_on:
+      - mongodb-primary
+    environment:
+      - MONGODB_ADVERTISED_HOSTNAME=mongodb-arbiter
+      - MONGODB_REPLICA_SET_MODE=arbiter
+      - MONGODB_PRIMARY_HOST=mongodb-primary
+      - MONGODB_PRIMARY_PORT_NUMBER=27017
+      - MONGODB_PRIMARY_ROOT_PASSWORD=password-123
+      - MONGODB_REPLICA_SET_KEY=123456789
+    # networks:
+    #   - parse_network
+    ports:
+      - 27037:27017
+
+# networks:
+#   parse_network:
+#     driver: bridge
+#     ipam:
+#       driver: default
+volumes:
+  mongodb_master_data:
+    driver: local
