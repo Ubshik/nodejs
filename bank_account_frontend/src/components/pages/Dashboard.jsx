@@ -9,7 +9,6 @@ export default function Dashboard () {
     console.log("START dashboard");
     const URL_DASHBOARD = "http://localhost:3000/api/v1/dashboard";
 
-    // const [userData, setUserData] = useState();
     const[rows, setRows] = useState([]);
     const [transactionSuccess, setTransactionSuccess] = useState(false);
     const [badAccess, setBadAccess] = useState(false);
@@ -40,7 +39,6 @@ export default function Dashboard () {
                 console.log("userData.balance: " + objectJson.balance);
                 console.log("userData.transactions: " + objectJson.transactions);
                 console.log("userData.transactions.object: " + JSON.parse(objectJson.transactions));
-                // setUserData(json);
 
                 let arrayTransactions = [];
                 JSON.parse(objectJson.transactions).map(row => {
@@ -58,7 +56,6 @@ export default function Dashboard () {
                     ...curUser,
                     balance: objectJson.balance,
                     transactions: arrayTransactions
-                    // transactions: JSON.stringify(objectJson.transactions)
                 })
                 setRows(arrayTransactions);
             }
@@ -70,9 +67,6 @@ export default function Dashboard () {
     return (
         <main id="dashboard">
             {
-                // badAccess === true 
-                //     ? <ErrorWindowRedirect message='Unauthorized access' navigateTo='/' /> 
-                //     : <DashboardConstructor data={userData} markTransactionsuccess={setTransactionSuccess}  />
                 badAccess === true 
                     ? <ErrorWindowRedirect message='Unauthorized access' navigateTo='/' /> 
                     : <DashboardConstructor transactionList={rows} setTransactions={setRows} markTransactionsuccess={setTransactionSuccess}  />
