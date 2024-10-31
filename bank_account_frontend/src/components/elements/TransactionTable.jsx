@@ -17,12 +17,12 @@ function TransactionTable (props) {
         },
         {
             name: "Amount",
-            selector: row => (row.from === curUser.email ? row.amount * (-1) : row.amount),
+            selector: row => row.amount,
             sortable: true,
         },
         {
             name: "From/To",
-            selector: row => (row.from === curUser.email ? row.to : row.from),
+            selector: row => row.address,
             sortable: true,
         },
     ]
@@ -62,9 +62,9 @@ function TransactionTable (props) {
                 curUser.transactions.map(row => {
                     if (row.creationTime.includes(input) ||
                         ('' + row.amount).includes(input) ||
-                        row.from.includes(input) ||
-                        row.to.includes(input)) {
+                        row.address.includes(input)) {
                             resultArray.push(row);
+                            console.log("amount: " + row.amount);
                         }
                 });
                 props.setTransactions(resultArray);

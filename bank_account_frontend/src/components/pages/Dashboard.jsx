@@ -45,9 +45,8 @@ export default function Dashboard () {
                     arrayTransactions.push(
                         {
                             creationTime: row.creationTime,
-                            amount: row.amount,
-                            from: row.from,
-                            to: row.to
+                            amount: row.from == curUser.email ? row.amount * (-1) : row.amount,
+                            address: row.from == curUser.email ? row.to : row.from,
                         }          
                     )
                 })
