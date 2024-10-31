@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import DataTable from 'react-data-table-component';
 import CurrentUserContext from '../../contexts/CurrentUserContext.js';
+import Searchicon from '../../assets/icons/search.svg';
 import '../pages/Dashboard.css';
 
 function TransactionTable (props) {
@@ -43,6 +44,11 @@ function TransactionTable (props) {
               justifyContent: 'center',
             },
         },
+        rows: {
+            style: {
+                minHeight: '44px',
+            },
+        },
     }
 
     const handlePressEnter = (e) => {
@@ -71,7 +77,8 @@ function TransactionTable (props) {
         <>
             <div className='list_transaction'>
                 <h1 className='title_list_transaction'>Transactions:</h1>
-                <input type="search" onKeyDown={handlePressEnter} placeholder='Serch' />
+                <span className='search_image_user_container'><img src={Searchicon} className='search_image_user'/></span>
+                <input type="search" className='search_input' onKeyDown={handlePressEnter} placeholder='Search' />
 
                 <div className='rows'>
                     <DataTable customStyles={tableCustomStyles} 
