@@ -33,9 +33,11 @@ const getUserDTO = async(email) => {
     const userDTO = {
         email: user.email,
         balance: (user.account.balance / 100),
-        transactions: transactionsDTO
+        // transactions: transactionsDTO
+        transactions: JSON.stringify(transactionsDTO)
     };
-    return userDTO;
+
+    return JSON.stringify(userDTO);
 }
 
 export default {

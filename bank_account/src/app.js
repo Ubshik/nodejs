@@ -28,13 +28,13 @@ app.listen(PORT, () => {
 dotenv.config();
 
 // !!! for local machine
-// const dbURL = 'mongodb://' + process.env.DATABASE_HOST + 
-//                 ':' + process.env.DATABASE_PORT + 
-//                 '/' +  process.env.DATABASE_NAME +
-//                 '?directConnection=true&replicaSet=replicaset&retryWrites=true';
+const dbURL = 'mongodb://' + process.env.DATABASE_HOST + 
+                ':' + process.env.DATABASE_PORT + 
+                '/' +  process.env.DATABASE_NAME +
+                '?directConnection=true&replicaSet=replicaset&retryWrites=true';
 
 // !!! for docker compose
-const dbURL = 'mongodb://admin-123:password-123@mongodb-primary:27017/bank_app?authSource=bank_app';
+// const dbURL = 'mongodb://admin-123:password-123@mongodb-primary:27017/bank_app?authSource=bank_app';
 
 console.log("mongo_url: " + dbURL);
 

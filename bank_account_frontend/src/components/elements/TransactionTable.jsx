@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import DataTable from 'react-data-table-component';
 import CurrentUserContext from '../../contexts/CurrentUserContext.js';
 import '../pages/Dashboard.css';
@@ -6,7 +6,6 @@ import '../pages/Dashboard.css';
 function TransactionTable (props) {
     console.log("START transaction_table");
 
-    const[rows, setRows] = useState();
     const {curUser} = useContext(CurrentUserContext);
 
     const columns = [
@@ -43,19 +42,50 @@ function TransactionTable (props) {
               paddingLeft: '0 8px',
               justifyContent: 'center',
             },
-          },
-      }
+        },
+    }
+
+    // function handleSearch(e) {
+    //     let searchValue;
+    //     let dateValue;
+    //     let amountValue;
+    //     let addresseeValue;
+
+    //     const newRows = props.transactionList.filter((row) => {
+    //         dateValue = row.creationTime.includes(e.target.value);
+    //         amountValue = row.amount.includes(e.target.value);
+
+    //         if (dateValue) {
+    //             searchValue = dateValue;
+    //         } else {
+    //             searchValue = amountValue;
+    //         }
+    
+    //         return searchValue;
+    //     });
+
+    //     props.setTransactions(newRows);
+    // }
+
+    const handlePressEnter = (e) => {
+        if (e.key === 'Enter') {
+            console.log('INPUT ' + e.target.value);
+          }
+    }
 
 
     return (
         <>
-            {console.log(props.data)}
+            {/* {console.log(props.data)} */}
             <div className='list_transaction'>
                 <h1 className='title_list_transaction'>Transactions:</h1>
+                <input type="search" onKeyDown={handlePressEnter} placeholder='Serch' />
 
                 <div className='rows'>
                     <DataTable customStyles={tableCustomStyles} 
-                        columns={columns} data={props?.data?.transactions}
+                        // columns={columns} data={props?.data?.transactions}
+                        // columns={columns} data={curUser.transactions}
+                        columns={columns} data={props.transactionList}
                         pagination 
                         paginationPerPage='8'
                         paginationRowsPerPageOptions={[6, 8, 10]}

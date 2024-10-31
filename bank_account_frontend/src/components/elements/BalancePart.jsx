@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react';
 import TokenContext from '../../contexts/TokenContext.js';
+import CurrentUserContext from '../../contexts/CurrentUserContext.js';
 import ErrorWindow from './ErrorWindow.jsx';
 import SuccessWindow from './SuccessWindow.jsx';
 import '../pages/Dashboard.css';
@@ -13,6 +14,7 @@ function BalancePart (props) {
     const [successResponse, setSuccessResponse] = useState("");
     const [badRequest, setBadRequest] = useState("");
     const {token} = useContext(TokenContext);
+    const {curUser} = useContext(CurrentUserContext);
 
     function receiveInputEmail(e) {
         setEmail(e.target.value);
@@ -69,7 +71,8 @@ function BalancePart (props) {
             <div className='balance_column'>
             <div className='balance_container'>
                 <h1 className='h1_middle'>Balance: </h1>
-                <h1 id='balance_amount'>{props?.data?.balance}</h1>
+                {/* <h1 id='balance_amount'>{props?.data?.balance}</h1> */}
+                <h1 id='balance_amount'>{curUser.balance}</h1>
             </div>
 
             <h1 className='h1_little transaction_tab'> Cash transfer:</h1>
