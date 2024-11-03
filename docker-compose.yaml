@@ -1,5 +1,3 @@
-version: '2'
-
 services:
   nodejs:
     image: bank_app
@@ -10,10 +8,10 @@ services:
       - mongodb-primary
       
   mongodb-primary:
-    image: bitnami/mongodb
+    image: bitnami/mongodb:5.0
     user: root
     volumes:
-      - ./mongodb-persistence/bitnami:/bitnami
+      - ./mongodb-persistence/bitnami:/bitnami/data1
     # networks:
     #   - parse_network
     environment:
@@ -28,7 +26,7 @@ services:
       - 27017:27017
 
   mongodb-secondary:
-    image: bitnami/mongodb
+    image: bitnami/mongodb:5.0
     depends_on:
       - mongodb-primary
     environment:
@@ -44,7 +42,7 @@ services:
       - 27027:27017
 
   mongodb-arbiter:
-    image: bitnami/mongodb
+    image: bitnami/mongodb:5.0
     depends_on:
       - mongodb-primary
     environment:
